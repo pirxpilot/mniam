@@ -1,0 +1,35 @@
+{
+  "name": "mniam",
+  "version": "0.0.1",
+  "description": "Yet another mongodb facade.",
+  "main": "./index",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/code42day/mniam.git"
+  },
+  "keywords": [
+    "mongodb",
+    "mongo",
+    "db"
+  ],
+  "author": {
+    "name": "Damian Krzeminski",
+    "email": "pirxpilot@code42day.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "guard": "~0",
+    "async": "~0.1",
+    "mongodb": "~1"
+  },
+  "devDependencies": {
+    "mocha": "~1",
+    "jshint": "~0"
+  }
+}
