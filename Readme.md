@@ -1,4 +1,5 @@
-# mniam
+# mniam [![Build Status](https://secure.travis-ci.org/code42day/mniam.png)](http://travis-ci.org/code42day/mniam)
+
 
 Yet another [mongodb][] [native driver][2] facade.
 Takes care of:
