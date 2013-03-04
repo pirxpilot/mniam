@@ -24,7 +24,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "guard": "~0",
     "async": "~0.1",
     "mongodb": "~1.2"
   },
