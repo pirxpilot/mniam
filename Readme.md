@@ -1,4 +1,7 @@
-# mniam [![Build Status](https://secure.travis-ci.org/code42day/mniam.png)](http://travis-ci.org/code42day/mniam)
+[![Build Status](https://secure.travis-ci.org/code42day/mniam.png)](http://travis-ci.org/code42day/mniam)
+[![NPM version](https://badge.fury.io/js/mniam.png)](http://badge.fury.io/js/mniam)
+
+# mniam
 
 
 Yet another [mongodb][] [native driver][2] facade.
