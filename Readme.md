@@ -1,4 +1,5 @@
 [![Build Status](https://secure.travis-ci.org/code42day/mniam.png)](http://travis-ci.org/code42day/mniam)
+[![Dependency Status](https://gemnasium.com/code42day/mniam.png)](https://gemnasium.com/code42day/mniam)
 [![NPM version](https://badge.fury.io/js/mniam.png)](http://badge.fury.io/js/mniam)
 
 # mniam
