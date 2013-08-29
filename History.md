@@ -1,4 +1,11 @@
 
+0.2.0 / 2013-08-29 
+==================
+
+ * Update dependencies
+ * Add dependency status badge to Readme
+ * Add nmp version badge from badge.fury.io
+
 0.0.2 / 2012-12-17 
 ==================
 
