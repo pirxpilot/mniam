@@ -1,6 +1,6 @@
-[![Build Status](https://secure.travis-ci.org/code42day/mniam.png)](http://travis-ci.org/code42day/mniam)
-[![Dependency Status](https://gemnasium.com/code42day/mniam.png)](https://gemnasium.com/code42day/mniam)
-[![NPM version](https://badge.fury.io/js/mniam.png)](http://badge.fury.io/js/mniam)
+[![Build Status](https://img.shields.io/travis/code42day/mniam.svg)](http://travis-ci.org/code42day/mniam)
+[![Dependency Status](https://img.shields.io/gemnasium/code42day/mniam.svg)](https://gemnasium.com/code42day/mniam)
+[![NPM version](https://img.shields.io/npm/v/mniam.svg)](http://badge.fury.io/js/mniam)
 
 # mniam
 
@@ -80,7 +80,6 @@ friends.remove({ name: 'Alice' }, function(err) {
   // last collection closed closes DB connection
   friends.close();
 });
-
 ```
 
 ### Other collection methods supported
