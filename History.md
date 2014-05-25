@@ -1,4 +1,12 @@
 
+1.0.0 / 2014-05-25
+==================
+
+ * travis: test on node 0.10
+ * use 'should' in tests
+ * simplify Makefile
+ * relax debug version dependency
+
 0.3.0 / 2013-09-14 
 ==================
 
