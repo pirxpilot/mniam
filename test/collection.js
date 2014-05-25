@@ -1,4 +1,4 @@
-var assert = require('assert');
+var should = require('should');
 var database = require('../lib/database');
 
 /*global describe, it*/
@@ -15,23 +15,24 @@ describe('collection', function() {
       name: 'Alice',
       age: 14,
     }, function(err, item) {
-      assert.ifError(err);
-      assert.equal(item.name, 'Alice');
-      assert.equal(item.age, 14);
-      assert.notEqual(null, item._id);
+      should.not.exist(err);
+      should.exist(item);
+      item.should.have.property('name', 'Alice');
+      item.should.have.property('age', 14);
+      item.should.have.property('_id');
 
       friends.findAndModify(item._id, {
         $set: {
           age: 15
         }
       }, function(err, item) {
-        assert.ifError(err);
-        assert.equal(item.name, 'Alice');
-        assert.equal(item.age, 15);
+        should.not.exist(err);
+        should.exist(item);
+        item.should.have.property('name', 'Alice');
+        item.should.have.property('age', 15);
 
         friends.remove({ name: 'Alice' }, function(err) {
-          assert.ifError(err);
-          done();
+          done(err);
           friends.close();
         });
       });
