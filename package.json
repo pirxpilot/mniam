@@ -30,6 +30,8 @@
   },
   "devDependencies": {
     "mocha": "~1",
-    "jshint": "~2"
+    "make-jshint": "~1",
+    "make-test": "~0",
+    "should": "~3"
   }
 }

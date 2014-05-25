@@ -1,10 +1,6 @@
 all: lint test
 
+include node_modules/make-jshint/index.mk
+include node_modules/make-test/index.mk
 
-lint:
-	./node_modules/.bin/jshint *.js lib test
-
-test:
-	./node_modules/.bin/mocha --recursive
-
-.PHONY: all lint test
+.PHONY: all
