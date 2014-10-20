@@ -26,12 +26,12 @@
   "dependencies": {
     "async": "~0",
     "mongodb": ">=1.2 <2",
-    "debug": "~0"
+    "debug": "~2"
   },
   "devDependencies": {
     "mocha": "~1",
     "make-jshint": "~1",
     "make-test": "~0",
-    "should": "~3"
+    "should": "~4"
   }
 }
