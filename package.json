@@ -29,9 +29,9 @@
     "debug": "~2"
   },
   "devDependencies": {
-    "mocha": "~1",
+    "mocha": "~2",
     "make-jshint": "~1",
     "make-test": "~0",
-    "should": "~4"
+    "should": "~6"
   }
 }
