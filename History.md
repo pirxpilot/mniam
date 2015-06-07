@@ -1,4 +1,11 @@
 
+1.2.0 / 2015-06-07
+==================
+
+ * update mongodb driver to 2.x
+ * update async ~0 -> ~1
+ * update mocha and should to the latest version
+
 1.1.0 / 2014-11-16
 ==================
 
