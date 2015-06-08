@@ -1,4 +1,9 @@
 
+1.3.0 / 2015-06-07
+==================
+
+ * expose mniam.objectID, deprecate db.objectID and collection.objectID
+
 1.2.0 / 2015-06-07
 ==================
 
