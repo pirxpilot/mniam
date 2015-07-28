@@ -1,4 +1,10 @@
 
+1.3.2 / 2015-07-28
+==================
+
+ * optimize objectID creation
+ * fix collection.find - get results before closing the cursor
+
 1.3.1 / 2015-07-27
 ==================
 
