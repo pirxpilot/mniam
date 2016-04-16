@@ -5,8 +5,9 @@ var async = require('async');
 /*global describe, it, before */
 
 describe('collection', function() {
-  before(function() {
+  before(function(done) {
     this.db = database('mongodb://localhost/mniam-test');
+    this.db.drop(done);
   });
 
   it('supports crud methods', function(done) {
@@ -71,7 +72,35 @@ describe('collection', function() {
         done(err);
       });
     });
+  });
 
+  it('drop removes all items from collection', function(done) {
+    var values = this.db.collection({
+      name: 'values',
+    });
+
+    async.series([
+      function(fn) {
+        async.times(10, function(i, fn) {
+          values.save({ value: 'x' + i }, fn);
+        }, fn);
+      },
+      function(fn) {
+        values.find({}, {}, {}, function(err, items) {
+          items.should.have.length(10);
+          fn(err);
+        });
+      },
+      function(fn) {
+        values.drop(fn);
+      },
+      function(fn) {
+        values.find({}, {}, {}, function(err, items) {
+          items.should.have.length(0);
+          fn(err);
+        });
+      }
+    ], done);
   });
 
 });
