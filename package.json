@@ -33,5 +33,9 @@
     "make-jshint": "~1",
     "make-test": "~0",
     "should": "~6"
-  }
+  },
+  "files": [
+    "index.js",
+    "lib"
+  ]
 }
