@@ -24,15 +24,15 @@
   },
   "license": "MIT",
   "dependencies": {
-    "async": "~1",
-    "mongodb": "~2",
-    "debug": "~2"
+    "async": "~2",
+    "debug": "~2",
+    "mongodb": "~2"
   },
   "devDependencies": {
     "mocha": "~2",
     "make-jshint": "~1",
     "make-test": "~0",
-    "should": "~6"
+    "should": "~9"
   },
   "files": [
     "index.js",
