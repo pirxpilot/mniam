@@ -1,4 +1,10 @@
 
+1.6.2 / 2017-02-19
+==================
+
+ * transfer repo to pirxpilot
+ * update node version in travis config
+
 1.6.1 / 2016-07-13
 ==================
 
