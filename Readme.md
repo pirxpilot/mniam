@@ -1,5 +1,5 @@
-[![Build Status](https://img.shields.io/travis/code42day/mniam.svg)](http://travis-ci.org/code42day/mniam)
-[![Dependency Status](https://img.shields.io/gemnasium/code42day/mniam.svg)](https://gemnasium.com/code42day/mniam)
+[![Build Status](https://img.shields.io/travis/pirxpilot/mniam.svg)](http://travis-ci.org/pirxpilot/mniam)
+[![Dependency Status](https://img.shields.io/gemnasium/pirxpilot/mniam.svg)](https://gemnasium.com/pirxpilot/mniam)
 [![NPM version](https://img.shields.io/npm/v/mniam.svg)](http://badge.fury.io/js/mniam)
 
 # mniam

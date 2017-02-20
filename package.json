@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/code42day/mniam.git"
+    "url": "git://github.com/pirxpilot/mniam.git"
   },
   "keywords": [
     "mongodb",
@@ -20,7 +20,7 @@
   ],
   "author": {
     "name": "Damian Krzeminski",
-    "email": "pirxpilot@code42day.com"
+    "email": "pirxpilot@furkot.com"
   },
   "license": "MIT",
   "dependencies": {
