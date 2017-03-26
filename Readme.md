@@ -117,6 +117,34 @@ friends.query().options({ sort: { age: 1 } }).eachLimit(4, function onItem(item,
 });
 ```
 
+### Aggregation
+
+Mniam collections provides flex API for [aggregation] pipeline:
+
+```javascript
+friends
+  .aggregate()      // start pipeline
+  .project({ author: 1, tags: 1 })
+  .unwind('$tags')
+  .group({
+    _id : { tags : '$tags' },
+    authors : { $addToSet : '$author' },
+    count: { $sum: 1 }
+  })
+  .sort({ count: -1 })
+  .toArray(function(err, results) {
+    console.log(results);
+  });
+
+```
+
+In addition to `toArray` you can use `eachSeries` and `eachLimit` to iterate over aggregation results.
+Each aggregation stage (`$project`, `$unwind`, `$sort`, etc.) has a corresponding function with the same
+name (without `$`). You can also pass a traditional array of stages to `.pipeline(stages)` method, and set
+options with `.options({})` method.
+
+
+
 ### Other collection methods supported
 
 - `collection.geonear`
@@ -132,4 +160,4 @@ MIT
 [2]: http://github.com/mongodb/node-mongodb-native.git
 [3]: http://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.html
 [4]: http://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.html#the-url-connection-format
-
+[aggregation]: https://docs.mongodb.com/manual/core/aggregation-pipeline/
