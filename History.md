@@ -1,4 +1,9 @@
 
+1.7.1 / 2017-07-16
+==================
+
+ * pass query in addition to id to the update() method
+
 1.7.0 / 2017-03-26
 ==================
 
