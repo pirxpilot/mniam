@@ -44,6 +44,28 @@ describe('collection', function() {
     });
   });
 
+  it('findAndModify accepts query as argument', function(done) {
+    var friends = this.db.collection({
+      name: 'friends',
+      indexes: [[{ name: 1 }]]
+    });
+
+    async.waterfall([
+      function(fn) {
+        friends.save({name: 'Bob', age: 33 }, fn);
+      },
+      function(item, fn) {
+        friends.findAndModify({ name: 'Bob' }, { $set: {age: 34 } }, fn);
+      },
+      function(item, fn) {
+        item.should.have.property('name', 'Bob');
+        item.should.have.property('age', 34);
+        item.should.have.property('_id');
+        fn();
+      }
+    ], done);
+  });
+
 
   it('drop removes all items from collection', function(done) {
     var values = this.db.collection({
