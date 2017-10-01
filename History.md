@@ -1,4 +1,9 @@
 
+1.7.2 / 2017-09-30
+==================
+
+ * allow query as a parameter for findAndModify
+
 1.7.1 / 2017-07-16
 ==================
 

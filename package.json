@@ -1,6 +1,6 @@
 {
   "name": "mniam",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "Yet another mongodb facade.",
   "main": "./index",
   "directories": {
