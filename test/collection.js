@@ -2,11 +2,15 @@ var should = require('should');
 var database = require('../lib/database');
 var async = require('async');
 
-/*global describe, it, before, beforeEach, afterEach */
+/*global describe, it, before, after, beforeEach, afterEach */
 
 describe('collection', function() {
   before(function(done) {
     this.db = database('mongodb://localhost/mniam-test');
+    this.db.drop(done);
+  });
+
+  after(function(done) {
     this.db.drop(done);
   });
 
@@ -96,6 +100,77 @@ describe('collection', function() {
     ], done);
   });
 
+  describe('should insert', function() {
+    beforeEach(function(done) {
+      var friends = this.db.collection({ name: 'friends' });
+      friends.drop(done);
+    });
+
+    it('one', function(done) {
+      var friends = this.db.collection({
+        name: 'friends',
+        indexes: [[{ name: 1 }]]
+      });
+
+      async.waterfall([
+        function(fn) {
+          friends.insertOne({name: 'Bob', age: 34 }, fn);
+        },
+        function(item, fn) {
+          friends.query({ name: 'Bob' }).toArray(fn);
+        },
+        function(items, fn) {
+          items.should.have.length(1);
+          let item = items[0];
+          item.should.have.property('name', 'Bob');
+          item.should.have.property('age', 34);
+          item.should.have.property('_id');
+          fn();
+        }
+      ], done);
+    });
+
+
+    it('many', function(done) {
+      var friends = this.db.collection({
+        name: 'friends',
+        indexes: [[{ name: 1 }]]
+      });
+
+      async.waterfall([
+        function(fn) {
+          friends.insertMany([
+            {name: 'Bob', age: 33 },
+            {name: 'Alice', age: 20 },
+            {name: 'Cyril', age: 21 }
+          ], fn);
+        },
+        function(item, fn) {
+          friends.query({ name: 'Bob' }).toArray(fn);
+        },
+        function(items, fn) {
+          items.should.have.length(1);
+          let item = items[0];
+          item.should.have.property('name', 'Bob');
+          item.should.have.property('age', 33);
+          item.should.have.property('_id');
+          fn();
+        },
+        function(fn) {
+          friends.query({ name: 'Alice' }).toArray(fn);
+        },
+        function(items, fn) {
+          items.should.have.length(1);
+          let item = items[0];
+          item.should.have.property('name', 'Alice');
+          item.should.have.property('age', 20);
+          item.should.have.property('_id');
+          fn();
+        }
+      ], done);
+    });
+  });
+
   describe('query', function() {
     var TEST_LEN = 421;
 
@@ -176,7 +251,5 @@ describe('collection', function() {
         done(err);
       });
     });
-
-
   });
 });
