@@ -1,4 +1,10 @@
 
+1.8.0 / 2018-01-15
+==================
+
+ * add modern CRUD methods to collection
+ * update code to ES6
+
 1.7.2 / 2017-09-30
 ==================
 
