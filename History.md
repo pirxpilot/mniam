@@ -1,4 +1,9 @@
 
+1.8.1 / 2018-02-02
+==================
+
+ * fix: allow `close()` for collections that were not open
+
 1.8.0 / 2018-01-15
 ==================
 
