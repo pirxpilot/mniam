@@ -1,4 +1,9 @@
 
+1.9.0 / 2018-03-03
+==================
+
+ * add memo util and use it for collection and database open
+
 1.8.1 / 2018-02-02
 ==================
 
