@@ -252,4 +252,35 @@ describe('collection', function() {
       });
     });
   });
+
+  describe('bulk', function() {
+    before(function() {
+      this.items = this.db.collection({ name: 'items' });
+    });
+
+    beforeEach(function(done) {
+      var items = this.items;
+
+      function send(value, fn) {
+        items.save({ _id: value }, fn);
+      }
+
+      async.times(10, send, done);
+    });
+
+    afterEach(function(done) {
+      this.items.drop(done);
+    });
+
+    it('updates multiple documents', function(done) {
+      this.items.bulkWrite([
+        { updateOne: { filter: { _id:1 }, update: { $set: { name: 'a' } } } },
+        { updateOne: { filter: { _id:2 }, update: { $set: { name: 'b' } } } },
+        { updateOne: { filter: { _id:3 }, update: { $set: { name: 'c' } } } }
+      ], function(err, results) {
+        results.nModified.should.eql(3);
+        done();
+      });
+    });
+  });
 });
