@@ -32,8 +32,8 @@
     "jshint": "~2",
     "make-jshint": "~2",
     "make-test": "~0",
-    "mocha": "~2",
-    "should": "~9"
+    "mocha": "~5",
+    "should": "~13"
   },
   "files": [
     "index.js",

@@ -1,17 +1,23 @@
-var should = require('should');
-var database = require('../lib/database');
-var async = require('async');
+const should = require('should');
+const database = require('../lib/database');
+const async = require('async');
 
 /*global describe, it, before, after, beforeEach, afterEach */
 
 describe('aggregate', function() {
   before(function(done) {
     this.db = database('mongodb://localhost/mniam-test');
-    this.db.drop(done);
+    this.db.drop(() => {
+      this.db.close();
+      done();
+    });
   });
 
   after(function(done) {
-    this.db.drop(done);
+    this.db.drop(() => {
+      this.db.close();
+      done();
+    });
   });
 
   beforeEach(function(done) {
