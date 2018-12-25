@@ -1,26 +1,42 @@
-var should = require('should');
-var database = require('../lib/database');
-var async = require('async');
+const should = require('should');
+const database = require('../lib/database');
+const async = require('async');
 
 /*global describe, it, before, after, beforeEach, afterEach */
 
 describe('collection', function() {
   before(function(done) {
     this.db = database('mongodb://localhost/mniam-test');
-    this.db.drop(done);
+    this.db.drop(() => {
+      this.db.close();
+      done();
+    });
   });
 
   after(function(done) {
-    this.db.drop(done);
+    this.db.drop(() => {
+      this.db.close();
+      done();
+    });
+  });
+
+  afterEach(function(done) {
+    if (this.collection) {
+      this.collection.drop(() => {
+        this.collection.close();
+        done();
+      });
+    }
   });
 
   it('supports crud methods', function(done) {
-    var friends = this.db.collection({
+    const friends = this.db.collection({
       name: 'friends',
       indexes: [[{ name: 1 }]]
     });
+    this.collection = friends;
 
-    friends.save({
+    friends.insertOne({
       name: 'Alice',
       age: 14,
     }, function(err, item) {
@@ -30,7 +46,7 @@ describe('collection', function() {
       item.should.have.property('age', 14);
       item.should.have.property('_id');
 
-      friends.findAndModify(item._id, {
+      friends.findOneAndUpdate(item._id, {
         $set: {
           age: 15
         }
@@ -40,31 +56,30 @@ describe('collection', function() {
         item.should.have.property('name', 'Alice');
         item.should.have.property('age', 15);
 
-        friends.remove({ name: 'Alice' }, function(err) {
-          done(err);
-          friends.close();
-        });
+        friends.removeOne({ name: 'Alice' }, done);
       });
     });
   });
 
-  it('findAndModify accepts query as argument', function(done) {
-    var friends = this.db.collection({
+  it('findOneAndUpdate accepts query as argument', function(done) {
+    const friends = this.db.collection({
       name: 'friends',
       indexes: [[{ name: 1 }]]
     });
+    this.collection = friends;
 
     async.waterfall([
       function(fn) {
-        friends.save({name: 'Bob', age: 33 }, fn);
+        friends.insertOne({name: 'Bob', age: 33 }, fn);
       },
       function(item, fn) {
-        friends.findAndModify({ name: 'Bob' }, { $set: {age: 34 } }, fn);
+        friends.findOneAndUpdate({ name: 'Bob' }, { $set: {age: 34 } }, fn);
       },
       function(item, fn) {
         item.should.have.property('name', 'Bob');
         item.should.have.property('age', 34);
         item.should.have.property('_id');
+
         fn();
       }
     ], done);
@@ -72,14 +87,15 @@ describe('collection', function() {
 
 
   it('drop removes all items from collection', function(done) {
-    var values = this.db.collection({
+    const values = this.db.collection({
       name: 'values',
     });
+    this.collection = values;
 
     async.series([
       function(fn) {
         async.times(10, function(i, fn) {
-          values.save({ value: 'x' + i }, fn);
+          values.insertOne({ value: `x${i}` }, fn);
         }, fn);
       },
       function(fn) {
@@ -94,6 +110,7 @@ describe('collection', function() {
       function(fn) {
         values.find({}, {}, {}, function(err, items) {
           items.should.have.length(0);
+
           fn(err);
         });
       }
@@ -101,16 +118,27 @@ describe('collection', function() {
   });
 
   describe('should insert', function() {
-    beforeEach(function(done) {
-      var friends = this.db.collection({ name: 'friends' });
-      friends.drop(done);
-    });
 
-    it('one', function(done) {
-      var friends = this.db.collection({
+    before(function() {
+      this.friends = this.db.collection({
         name: 'friends',
         indexes: [[{ name: 1 }]]
       });
+    });
+
+    after(function(done) {
+      this.friends.drop(() => {
+        this.friends.close();
+        done();
+      });
+    });
+
+    beforeEach(function(done) {
+      this.friends.removeMany({}, done);
+    });
+
+    it('one', function(done) {
+      const { friends } = this;
 
       async.waterfall([
         function(fn) {
@@ -125,17 +153,15 @@ describe('collection', function() {
           item.should.have.property('name', 'Bob');
           item.should.have.property('age', 34);
           item.should.have.property('_id');
+
+          friends.close();
           fn();
         }
       ], done);
     });
 
-
     it('many', function(done) {
-      var friends = this.db.collection({
-        name: 'friends',
-        indexes: [[{ name: 1 }]]
-      });
+      const { friends } = this;
 
       async.waterfall([
         function(fn) {
@@ -172,7 +198,7 @@ describe('collection', function() {
   });
 
   describe('query', function() {
-    var TEST_LEN = 421;
+    const TEST_LEN = 421;
 
     before(function() {
       this.numbers = this.db.collection({
@@ -181,23 +207,30 @@ describe('collection', function() {
       });
     });
 
+    after(function(done) {
+      this.numbers.drop(() => {
+        this.numbers.close();
+        done();
+      });
+    });
+
     beforeEach(function(done) {
-      var numbers = this.numbers;
+      const { numbers } = this;
 
       function send(value, fn) {
-        numbers.save({ value: value }, fn);
+        numbers.insertOne({ value }, fn);
       }
 
       async.times(TEST_LEN, send, done);
     });
 
     afterEach(function(done) {
-      this.numbers.drop(done);
+      this.numbers.removeMany({}, done);
     });
 
     it('eachLimit iterates over all elements of collection', function(done) {
-      var numbers = this.numbers;
-      var results = [];
+      const { numbers } = this;
+      const results = [];
 
       function receive(item, fn) {
         results[item.value] = true;
@@ -215,8 +248,8 @@ describe('collection', function() {
     });
 
     it('find elements by query', function(done) {
-      var numbers = this.numbers;
-      var results = [];
+      const { numbers } = this;
+      const results = [];
 
       function receive(item, fn) {
         results.push({ value: item.value });
@@ -234,7 +267,7 @@ describe('collection', function() {
     });
 
     it('find elements by query with fields and options', function(done) {
-      var numbers = this.numbers;
+      const { numbers } = this;
 
       numbers
       .query({ value: { $lt: 10, $gte: 5 } })
@@ -258,11 +291,18 @@ describe('collection', function() {
       this.items = this.db.collection({ name: 'items' });
     });
 
+    after(function(done) {
+      this.items.drop(() => {
+        this.items.close();
+        done();
+      });
+    });
+
     beforeEach(function(done) {
-      var items = this.items;
+      const { items } = this;
 
       function send(value, fn) {
-        items.save({ _id: value }, fn);
+        items.insertOne({ _id: value }, fn);
       }
 
       async.times(10, send, done);
