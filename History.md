@@ -1,4 +1,13 @@
 
+2.0.0 / 2018-12-25
+==================
+
+ * upgrade dependencies
+ * upgrade monggodb driver to ~3
+ * add `replaceOne`
+ * replace `findAndModify` with `findOneAndUpdate`
+ * remove deprecated: `remove`, `save`, `update`
+
 1.10.0 / 2018-03-11
 ===================
 
