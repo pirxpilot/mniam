@@ -20,7 +20,7 @@ describe('collection', function() {
       indexes: [[{ name: 1 }]]
     });
 
-    friends.save({
+    friends.insertOne({
       name: 'Alice',
       age: 14,
     }, function(err, item) {
@@ -30,7 +30,7 @@ describe('collection', function() {
       item.should.have.property('age', 14);
       item.should.have.property('_id');
 
-      friends.findAndModify(item._id, {
+      friends.findOneAndUpdate(item._id, {
         $set: {
           age: 15
         }
@@ -40,7 +40,7 @@ describe('collection', function() {
         item.should.have.property('name', 'Alice');
         item.should.have.property('age', 15);
 
-        friends.remove({ name: 'Alice' }, function(err) {
+        friends.removeOne({ name: 'Alice' }, function(err) {
           done(err);
           friends.close();
         });
@@ -48,7 +48,7 @@ describe('collection', function() {
     });
   });
 
-  it('findAndModify accepts query as argument', function(done) {
+  it('findOneAndUpdate accepts query as argument', function(done) {
     var friends = this.db.collection({
       name: 'friends',
       indexes: [[{ name: 1 }]]
@@ -56,10 +56,10 @@ describe('collection', function() {
 
     async.waterfall([
       function(fn) {
-        friends.save({name: 'Bob', age: 33 }, fn);
+        friends.insertOne({name: 'Bob', age: 33 }, fn);
       },
       function(item, fn) {
-        friends.findAndModify({ name: 'Bob' }, { $set: {age: 34 } }, fn);
+        friends.findOneAndUpdate({ name: 'Bob' }, { $set: {age: 34 } }, fn);
       },
       function(item, fn) {
         item.should.have.property('name', 'Bob');
@@ -79,7 +79,7 @@ describe('collection', function() {
     async.series([
       function(fn) {
         async.times(10, function(i, fn) {
-          values.save({ value: 'x' + i }, fn);
+          values.insertOne({ value: 'x' + i }, fn);
         }, fn);
       },
       function(fn) {
@@ -185,7 +185,7 @@ describe('collection', function() {
       var numbers = this.numbers;
 
       function send(value, fn) {
-        numbers.save({ value: value }, fn);
+        numbers.insertOne({ value: value }, fn);
       }
 
       async.times(TEST_LEN, send, done);
@@ -262,7 +262,7 @@ describe('collection', function() {
       var items = this.items;
 
       function send(value, fn) {
-        items.save({ _id: value }, fn);
+        items.insertOne({ _id: value }, fn);
       }
 
       async.times(10, send, done);

@@ -16,7 +16,7 @@ describe('aggregate', function() {
 
   beforeEach(function(done) {
     this.collection = this.db.collection({ name: 'books' });
-    this.collection.save({
+    this.collection.insertOne({
       title : 'this is my title',
       author : 'bob',
       pageViews : 5,
