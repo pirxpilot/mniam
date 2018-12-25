@@ -25,7 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "~2",
-    "debug": "~2",
+    "debug": "~4",
     "mongodb": "~2"
   },
   "devDependencies": {
