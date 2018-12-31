@@ -1,6 +1,7 @@
-[![Build Status](https://img.shields.io/travis/pirxpilot/mniam.svg)](http://travis-ci.org/pirxpilot/mniam)
-[![Dependency Status](https://img.shields.io/gemnasium/pirxpilot/mniam.svg)](https://gemnasium.com/pirxpilot/mniam)
-[![NPM version](https://img.shields.io/npm/v/mniam.svg)](http://badge.fury.io/js/mniam)
+[![NPM version][npm-image]][npm-url]
+[![Build Status][build-image]][build-url]
+[![Dependency Status][deps-image]][deps-url]
+[![Dev Dependency Status][deps-dev-image]][deps-dev-url]
 
 # mniam
 
@@ -155,9 +156,20 @@ options with `.options({})` method.
 
 MIT
 
-
 [mongodb]: http://www.mongodb.org
 [2]: http://github.com/mongodb/node-mongodb-native.git
 [3]: http://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.html
 [4]: http://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.html#the-url-connection-format
 [aggregation]: https://docs.mongodb.com/manual/core/aggregation-pipeline/
+
+[npm-image]: https://img.shields.io/npm/v/mniam.svg
+[npm-url]: https://npmjs.org/package/mniam
+
+[build-url]: https://travis-ci.org/pirxpilot/mniam
+[build-image]: https://img.shields.io/travis/pirxpilot/mniam.svg
+
+[deps-image]: https://img.shields.io/david/pirxpilot/mniam.svg
+[deps-url]: https://david-dm.org/pirxpilot/mniam
+
+[deps-dev-image]: https://img.shields.io/david/dev/pirxpilot/mniam.svg
+[deps-dev-url]: https://david-dm.org/pirxpilot/mniam?type=dev
