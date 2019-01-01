@@ -1,6 +1,4 @@
-const should = require('should');
 const database = require('../lib/database');
-const async = require('async');
 
 /*global describe, it, before, after, beforeEach, afterEach */
 

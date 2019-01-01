@@ -1,7 +1,14 @@
 {
-  "undef": "true",
-  "unused": "true",
-  "laxbreak": "true",
+  "eqeqeq": true,
+  "eqnull": true,
+  "immed": true,
+  "latedef": "nofunc",
+  "mocha" : true,
+  "newcap": true,
+  "noarg": true,
   "node": true,
+  "sub": true,
+  "undef": true,
+  "unused": true,
   "esversion": 6
 }
