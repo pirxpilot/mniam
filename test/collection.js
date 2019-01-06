@@ -47,10 +47,8 @@ describe('collection', function() {
       item.should.have.property('_id');
 
       friends.findOneAndUpdate(item._id, {
-        $set: {
-          age: 15
-        }
-      }, function(err, item) {
+        $set: { age: 15 },
+      }, { returnOriginal: false }, function(err, item) {
         should.not.exist(err);
         should.exist(item);
         item.should.have.property('name', 'Alice');
@@ -59,6 +57,75 @@ describe('collection', function() {
         friends.removeOne({ name: 'Alice' }, done);
       });
     });
+  });
+
+  it('supports findOneAndReplace', function(done) {
+    const friends = this.db.collection({
+      name: 'friends',
+      indexes: [[{ name: 1 }]]
+    });
+    this.collection = friends;
+
+    async.waterfall([
+      fn => friends.insertOne({ name: 'Alice', age: 14 }, fn),
+      (item, fn) => friends.findOneAndReplace({ name: 'Alice'}, { name: 'Bob', age: 33 }, fn),
+      (item, fn) => {
+        item.should.have.property('name', 'Alice');
+        item.should.have.property('age', 14);
+        fn();
+      },
+      fn => friends.findOne({ name: 'Bob'}, fn),
+      (item, fn) => {
+        item.should.have.property('name', 'Bob');
+        item.should.have.property('age', 33);
+        fn();
+      },
+    ], done);
+  });
+
+  it('supports findOneAndReplace with options', function(done) {
+    const friends = this.db.collection({
+      name: 'friends',
+      indexes: [[{ name: 1 }]]
+    });
+    this.collection = friends;
+
+    async.waterfall([
+      fn => friends.insertOne({ name: 'Alice', age: 14 }, fn),
+      (item, fn) => friends.findOneAndReplace(
+        { name: 'Alice'},
+        { name: 'Bob', age: 33 },
+        { returnOriginal: false },
+        fn
+      ),
+      (item, fn) => {
+        item.should.have.property('name', 'Bob');
+        item.should.have.property('age', 33);
+        fn();
+      },
+    ], done);
+  });
+
+  it('supports findOneAndDelete', function(done) {
+    const friends = this.db.collection({
+      name: 'friends',
+      indexes: [[{ name: 1 }]]
+    });
+    this.collection = friends;
+
+    async.waterfall([
+      fn => friends.insertOne({ name: 'Alice', age: 14 }, fn),
+      (item, fn) => friends.findOneAndDelete({ name: 'Alice'}, fn),
+      (item, fn) => {
+        item.should.have.property('name', 'Alice');
+        item.should.have.property('age', 14);
+        fn();
+      },
+      fn => friends.findOne({ name: 'Alice'}, err => {
+        should.exist(err);
+        fn();
+      })
+    ], done);
   });
 
   it('findOneAndUpdate accepts query as argument', function(done) {
