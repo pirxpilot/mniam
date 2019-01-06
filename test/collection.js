@@ -54,7 +54,7 @@ describe('collection', function() {
         item.should.have.property('name', 'Alice');
         item.should.have.property('age', 15);
 
-        friends.removeOne({ name: 'Alice' }, done);
+        friends.deleteOne({ name: 'Alice' }, done);
       });
     });
   });
