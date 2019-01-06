@@ -1,4 +1,10 @@
 
+2.1.0 / 2019-01-06
+==================
+
+ * rename removeOne/All to deleteOneAll
+ * add findOneAndReplace and findOneAndDelete collection methods
+
 2.0.2 / 2018-12-31
 ==================
 
