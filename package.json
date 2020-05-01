@@ -31,9 +31,8 @@
   "devDependencies": {
     "jshint": "~2",
     "make-jshint": "~2",
-    "make-test": "~0",
-    "mocha": "~5",
-    "should": "~13"
+    "tap-dot": "~2",
+    "tape": "~5"
   },
   "files": [
     "index.js",

@@ -1,40 +1,20 @@
+const test = require(`tape`);
+
 const database = require('../lib/database');
 
-/*global describe, it, before, after, beforeEach, afterEach */
+test('aggregate', function(t) {
 
-describe('aggregate', function() {
-  before(function(done) {
-    this.db = database('mongodb://localhost/mniam-test');
-    this.db.drop(() => {
-      this.db.close();
-      done();
-    });
-  });
+  const db = database('mongodb://localhost/mniam-test');
+  const collection = db.collection({ name: 'books' });
 
-  after(function(done) {
-    this.db.drop(() => {
-      this.db.close();
-      done();
-    });
-  });
+  t.test('before', dropDatabase);
 
-  beforeEach(function(done) {
-    this.collection = this.db.collection({ name: 'books' });
-    this.collection.insertOne({
-      title : 'this is my title',
-      author : 'bob',
-      pageViews : 5,
-      tags : [ 'fun' , 'good' , 'fun' ],
-      other : { foo : 5 },
-    }, done);
-  });
+  t.test('beforeEach', createCollection);
 
-  afterEach(function() {
-    this.collection.close();
-  });
+  t.test('should process pipeline', function(t) {
+    t.plan(2);
 
-  it('should process pipeline', function(done) {
-    this.collection
+    collection
       .aggregate()
       .project({ author: 1, tags: 1 })
       .unwind('$tags')
@@ -45,11 +25,38 @@ describe('aggregate', function() {
       })
       .sort({ count: -1 })
       .toArray(function(err, results) {
-        results.should.eql([
+        t.error(err);
+        t.deepEqual(results, [
           { _id: { 'tags': 'fun' }, 'authors': [ 'bob' ], count: 2 },
           { _id: { 'tags': 'good' }, 'authors': [ 'bob' ], count: 1 }
         ]);
-        done(err);
       });
   });
+
+  t.test('afterEach', closeCollection);
+
+  t.test('after', dropDatabase);
+
+  t.end();
+
+  function dropDatabase(t) {
+    db.drop(() => { db.close(); t.end(); });
+  }
+
+  function createCollection(t) {
+    collection.insertOne({
+      title : 'this is my title',
+      author : 'bob',
+      pageViews : 5,
+      tags : [ 'fun' , 'good' , 'fun' ],
+      other : { foo : 5 },
+    }, t.end);
+  }
+
+  function closeCollection(t) {
+    collection.close();
+    t.end();
+  }
 });
+
+
