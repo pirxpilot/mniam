@@ -1,4 +1,13 @@
 
+2.1.1 / 2020-05-01
+==================
+
+ * upgrade async to ~3
+ * replace mongo/should with tape
+ * add `useUnifiedTopology` flag for DB connection
+ * fix iterator.eachLimit
+ * fix findOneAndUpdate test
+
 2.1.0 / 2019-01-06
 ==================
 
