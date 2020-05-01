@@ -46,7 +46,7 @@ describe('collection', function() {
       item.should.have.property('age', 14);
       item.should.have.property('_id');
 
-      friends.findOneAndUpdate(item._id, {
+      friends.findOneAndUpdate({ _id: item._id }, {
         $set: { age: 15 },
       }, { returnOriginal: false }, function(err, item) {
         should.not.exist(err);
