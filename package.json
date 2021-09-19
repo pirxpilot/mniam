@@ -26,7 +26,7 @@
   "dependencies": {
     "async": "~3",
     "debug": "~4",
-    "mongodb": "~3"
+    "mongodb": "~4"
   },
   "devDependencies": {
     "jshint": "~2",

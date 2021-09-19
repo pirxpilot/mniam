@@ -26,7 +26,7 @@ test('collection', function(t) {
 
       friends.findOneAndUpdate({ _id: item._id }, {
         $set: { age: 15 },
-      }, { returnOriginal: false }, function(err, item) {
+      }, { returnDocument: 'after' }, function(err, item) {
         t.error(err);
         t.ok(item);
         t.equal(item.name, 'Alice');
@@ -87,7 +87,7 @@ test('collection', function(t) {
       (item, fn) => friends.findOneAndReplace(
         { name: 'Alice'},
         { name: 'Bob', age: 33 },
-        { returnOriginal: false },
+        { returnDocument: 'after' },
         fn
       ),
       (item, fn) => {
@@ -260,6 +260,7 @@ test('should insert', function(t) {
         ], fn);
       },
       function(item, fn) {
+        t.deepEquals(Object.keys(item).length, 3);
         friends.query({ name: 'Bob' }).toArray(fn);
       },
       function(items, fn) {
