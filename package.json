@@ -24,14 +24,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "async": "~3",
     "debug": "~4",
     "mongodb": "~4"
   },
   "devDependencies": {
     "jshint": "~2",
     "make-jshint": "~2",
-    "tap-dot": "~2",
     "tape": "~5"
   },
   "files": [
