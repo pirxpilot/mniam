@@ -1,7 +1,6 @@
 [![NPM version][npm-image]][npm-url]
 [![Build Status][build-image]][build-url]
 [![Dependency Status][deps-image]][deps-url]
-[![Dev Dependency Status][deps-dev-image]][deps-dev-url]
 
 # mniam
 
@@ -162,14 +161,11 @@ MIT
 [4]: http://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.html#the-url-connection-format
 [aggregation]: https://docs.mongodb.com/manual/core/aggregation-pipeline/
 
-[npm-image]: https://img.shields.io/npm/v/mniam.svg
 [npm-url]: https://npmjs.org/package/mniam
+[npm-image]: https://img.shields.io/npm/v/mniam
 
-[build-url]: https://travis-ci.org/pirxpilot/mniam
-[build-image]: https://img.shields.io/travis/pirxpilot/mniam.svg
+[build-url]: https://app.travis-ci.com/github/pirxpilot/mniam
+[build-image]: https://img.shields.io/travis/com/pirxpilot/mniam
 
-[deps-image]: https://img.shields.io/david/pirxpilot/mniam.svg
-[deps-url]: https://david-dm.org/pirxpilot/mniam
-
-[deps-dev-image]: https://img.shields.io/david/dev/pirxpilot/mniam.svg
-[deps-dev-url]: https://david-dm.org/pirxpilot/mniam?type=dev
+[deps-image]: https://img.shields.io/librariesio/release/npm/mniam
+[deps-url]: https://libraries.io/npm/mniam
