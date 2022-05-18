@@ -40,6 +40,21 @@ test('query', async function (t) {
     t.equal(results.filter(Boolean).length, TEST_LEN, 'and they all are true');
   });
 
+  t.test('for await iterates over all elements', async function (t) {
+    t.teardown(remove);
+    await insert();
+
+    const results = [];
+
+    const items = await numbers.query().items();
+    for await(const { value } of items) {
+      results[value] = true;
+    }
+
+    t.equal(results.length, TEST_LEN, 'all items visited');
+    t.equal(results.filter(Boolean).length, TEST_LEN, 'and they all are true');
+  });
+
   t.test('find elements by query', async function (t) {
     t.teardown(remove);
     await insert();
