@@ -128,6 +128,21 @@ test('collection', async function (t) {
     t.equal(item.age, 34);
   });
 
+  t.test('distinct', async function (t) {
+    const friends = db.collection({
+      name: 'friends',
+      indexes: [[{ name: 1 }]]
+    });
+    t.teardown(() => cleanup(friends));
+    await friends.insertOne({ name: 'Alice', age: 33 });
+    await friends.insertOne({ name: 'Bob', age: 33 });
+    await friends.insertOne({ name: 'Celia', age: 22 });
+
+    t.deepEqual(await friends.distinct('name'), ['Alice', 'Bob', 'Celia']);
+    t.deepEqual(await friends.distinct('name', { age: 33 }), ['Alice', 'Bob']);
+    t.deepEqual(await friends.distinct('age'), [22, 33]);
+  });
+
   t.test('drop removes all items from collection', async function (t) {
     const values = db.collection({
       name: 'values'
