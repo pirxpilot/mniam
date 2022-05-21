@@ -20,13 +20,22 @@ test('query', async function (t) {
 
   t.test('eachLimit iterates over all elements', async function (t) {
     t.teardown(remove);
-    await insert();
+
+    const LEN = 512;
+    await insert(LEN);
 
     const results = [];
+    let running = 0;
+    let maxRunning = 0;
 
     async function visit(item) {
       function fn(resolve) {
+        running += 1;
+        if (running > maxRunning) {
+          maxRunning = running;
+        }
         setTimeout(() => {
+          running -= 1;
           results[item.value] = true;
           resolve(true);
         });
@@ -34,10 +43,11 @@ test('query', async function (t) {
       return new Promise(fn);
     }
 
-    await numbers.eachLimit(7, visit);
+    await numbers.eachLimit(12, visit);
 
-    t.equal(results.length, TEST_LEN, 'all items visited');
-    t.equal(results.filter(Boolean).length, TEST_LEN, 'and they all are true');
+    t.equal(results.length, LEN, 'all items visited');
+    t.equal(results.filter(Boolean).length, LEN, 'and they all are true');
+    t.equal(maxRunning, 12, 'max concurrent task limit respected');
   });
 
   t.test('for await iterates over all elements', async function (t) {
@@ -47,7 +57,7 @@ test('query', async function (t) {
     const results = [];
 
     const items = await numbers.query().items();
-    for await(const { value } of items) {
+    for await (const { value } of items) {
       results[value] = true;
     }
 
@@ -93,9 +103,9 @@ test('query', async function (t) {
     t.deepEqual(results[2], { value: 7 });
   });
 
-  async function insert() {
+  async function insert(len = TEST_LEN) {
     const tasks = [];
-    for (let value = 0; value < TEST_LEN; value++) {
+    for (let value = 0; value < len; value++) {
       tasks.push(numbers.insertOne({ value }));
     }
     await Promise.all(tasks);
