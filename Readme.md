@@ -164,8 +164,8 @@ MIT
 [npm-url]: https://npmjs.org/package/mniam
 [npm-image]: https://img.shields.io/npm/v/mniam
 
-[build-url]: https://app.travis-ci.com/github/pirxpilot/mniam
-[build-image]: https://img.shields.io/travis/com/pirxpilot/mniam
+[build-url]: https://github.com/pirxpilot/mniam/actions/workflows/check.yaml
+[build-image]: https://img.shields.io/github/workflow/status/pirxpilot/mniam/check
 
 [deps-image]: https://img.shields.io/librariesio/release/npm/mniam
 [deps-url]: https://libraries.io/npm/mniam
