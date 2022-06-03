@@ -1,4 +1,11 @@
 
+3.0.0 / 2022-06-03
+==================
+
+ * replace callback API with promise based API
+ * add `items` method to cursor and aggregate
+ * add `collection.distinct` method
+
 2.2.0 / 2021-09-20 
 ==================
 
