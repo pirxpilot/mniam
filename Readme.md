@@ -24,11 +24,11 @@ Install by running
 Connect to database `mniam-test` and create `friends` collection with index on ```name``` field.
 
 ```javascript
-var db = database('mongodb://localhost/mniam-test'),
-  friends = db.collection({
-    name: 'friends',
-    indexes: [[{ name: 1 }]]
-  });
+const db = database('mongodb://localhost/mniam-test');
+const friends = db.collection({
+  name: 'friends',
+  indexes: [[{ name: 1 }]]
+});
 ```
 
 Mniam is using [MongoClient][3] to establish the connection: [full mongo database URLs][4] are
@@ -36,14 +36,14 @@ supported. The database function also takes a hash of options divided into db/se
 allowing you to tweak options not directly supported by the unified url string format.
 
 ```javascript
-var db = database('mongodb://localhost/mniam-test', {
+const db = database('mongodb://localhost/mniam-test', {
   db: {
     w: -1
   },
   server: {
     ssl: true
   }
-})
+});
 ```
 
 ### `collection.save`
@@ -51,35 +51,30 @@ var db = database('mongodb://localhost/mniam-test', {
 Add a new documents:
 
 ```javascript
-friends.save({
+const item = await friends.save({
   name: 'Alice',
   age: 14,
-}, function(err, item) {
-	console.log('Item id:', item._id);
-});
+};
+console.log('Item id:', item._id);
 ```
 
-### `collection.findAndModify`
+### `collection.findOneAndUpdate`
 
 Update a document:
 
 ```javascript
-friends.findAndModify(item._id, {
+const item = await friends.findAndModify({ _id: item._id }, {
   $set: { age: 15 }
-}, function(err, item) {
-  console.log('Alice is now:', item.age);
-})
+});
+console.log('Alice is now:', item.age);
 ```
 
-### `collection.remove`
+### `collection.deleteOne`
 
 Remove a document:
 
 ```javascript
-friends.remove({ name: 'Alice' }, function(err) {
-  // last collection closed closes DB connection
-  friends.close();
-});
+await friends.deleteOne({ name: 'Alice' });
 ```
 
 ### Iteration
@@ -87,34 +82,39 @@ friends.remove({ name: 'Alice' }, function(err) {
 Use `query`, `fields` and `options` to create and configure cursor.
 Iterate over the results of the query using `toArray`, `eachSeries`, `eachLimit` methods.
 
+- `items` - can be used as async iterator
+
+```javascript
+for await (const friend of friends.query({ age: { $gt: 21 } }).items()) {
+  console.log('My friend over 21 years old', friend.name);
+}
+```
+
 - `toArray` - converts query results into array
 
 ```javascript
-friends.query({ age: { $gt: 21 } }).toArray(function(err, arr) {
-  console.log('My friends over 21 years old', arr);
-});
+const arr = await friends.query({ age: { $gt: 21 } }).toArray();
+console.log('My friends over 21 years old', arr);
 ```
 
 - `eachSeries` - calls `onItem` sequentially for all results
 
 ```javascript
-friends.query().fields({ name: 1 }).eachSeries(function onItem(item, fn) {
-  console.log('Name:', item.name);
-  fn();
-}, function done(err) {
-  console.log('All friends listed.');
-});
+await friends
+  .query()
+  .fields({ name: 1 })
+  .eachSeries(async item => console.log('Name:', item.name));
+console.log('All friends listed.');
 ```
 
 - `eachLimit` - iterates over all results calling `onItem` in parallel, but no more than `limit` at a time
 
 ```javascript
-friends.query().options({ sort: { age: 1 } }).eachLimit(4, function onItem(item, fn) {
-  console.log('Friend', item);
-  fn();
-}, function done(err) {
-  console.log('All friends listed.');
-});
+await friends
+  .query()
+  .options({ sort: { age: 1 } })
+  .eachLimit(4, async item => console.log('Friend', item));
+console.log('All friends listed.');
 ```
 
 ### Aggregation
@@ -122,7 +122,7 @@ friends.query().options({ sort: { age: 1 } }).eachLimit(4, function onItem(item,
 Mniam collections provides flex API for [aggregation] pipeline:
 
 ```javascript
-friends
+const results = await friends
   .aggregate()      // start pipeline
   .project({ author: 1, tags: 1 })
   .unwind('$tags')
@@ -132,24 +132,14 @@ friends
     count: { $sum: 1 }
   })
   .sort({ count: -1 })
-  .toArray(function(err, results) {
-    console.log(results);
-  });
-
+  .toArray();
+console.log(results);
 ```
 
 In addition to `toArray` you can use `eachSeries` and `eachLimit` to iterate over aggregation results.
 Each aggregation stage (`$project`, `$unwind`, `$sort`, etc.) has a corresponding function with the same
 name (without `$`). You can also pass a traditional array of stages to `.pipeline(stages)` method, and set
 options with `.options({})` method.
-
-
-
-### Other collection methods supported
-
-- `collection.geonear`
-- `collection.findOne`
-- `collection.update`
 
 ## License
 
