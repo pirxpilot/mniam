@@ -9,10 +9,7 @@
   "scripts": {
     "test": "make test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/pirxpilot/mniam.git"
-  },
+  "repository": "pirxpilot/mniam",
   "keywords": [
     "mongodb",
     "mongo",
@@ -24,14 +21,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "async": "~3",
     "debug": "~4",
     "mongodb": "~4"
   },
   "devDependencies": {
     "jshint": "~2",
     "make-jshint": "~2",
-    "tap-dot": "~2",
     "tape": "~5"
   },
   "files": [
