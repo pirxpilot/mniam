@@ -155,7 +155,7 @@ MIT
 [npm-image]: https://img.shields.io/npm/v/mniam
 
 [build-url]: https://github.com/pirxpilot/mniam/actions/workflows/check.yaml
-[build-image]: https://img.shields.io/github/workflow/status/pirxpilot/mniam/check
+[build-image]: https://img.shields.io/github/actions/workflow/status/pirxpilot/mniam/check.yaml?branch=main
 
 [deps-image]: https://img.shields.io/librariesio/release/npm/mniam
 [deps-url]: https://libraries.io/npm/mniam
