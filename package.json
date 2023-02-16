@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "debug": "~4",
-    "mongodb": "~4"
+    "mongodb": "~5"
   },
   "devDependencies": {
     "jshint": "~2",
