@@ -1,4 +1,10 @@
 
+4.0.0 / 2023-12-24
+==================
+
+ * upgrade mongodb driver to ~6
+ * replace tape with node:test
+
 3.1.1 / 2023-04-03
 ==================
 
