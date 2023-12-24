@@ -1,14 +1,15 @@
-const test = require('tape');
+const { describe, after, it } = require('node:test');
+const assert = require('node:assert/strict');
 
 const database = require('../lib/database');
 
 const db = database('mongodb://localhost/mniam-test');
 
-test('query', async function (t) {
+describe('query', async function () {
   const TEST_LEN = 421;
 
   await db.drop();
-  t.teardown(async function () {
+  after(async function () {
     await db.drop();
     await db.close();
   });
@@ -18,8 +19,8 @@ test('query', async function (t) {
     batchSize: 33
   });
 
-  t.test('eachLimit iterates over all elements', async function (t) {
-    t.teardown(remove);
+  it('eachLimit iterates over all elements', async function () {
+    after(remove);
 
     const LEN = 512;
     await insert(LEN);
@@ -45,13 +46,13 @@ test('query', async function (t) {
 
     await numbers.eachLimit(12, visit);
 
-    t.equal(results.length, LEN, 'all items visited');
-    t.equal(results.filter(Boolean).length, LEN, 'and they all are true');
-    t.equal(maxRunning, 12, 'max concurrent task limit respected');
+    assert.equal(results.length, LEN, 'all items visited');
+    assert.equal(results.filter(Boolean).length, LEN, 'and they all are true');
+    assert.equal(maxRunning, 12, 'max concurrent task limit respected');
   });
 
-  t.test('for await iterates over all elements', async function (t) {
-    t.teardown(remove);
+  it('for await iterates over all elements', async function () {
+    after(remove);
     await insert();
 
     const results = [];
@@ -61,12 +62,12 @@ test('query', async function (t) {
       results[value] = true;
     }
 
-    t.equal(results.length, TEST_LEN, 'all items visited');
-    t.equal(results.filter(Boolean).length, TEST_LEN, 'and they all are true');
+    assert.equal(results.length, TEST_LEN, 'all items visited');
+    assert.equal(results.filter(Boolean).length, TEST_LEN, 'and they all are true');
   });
 
-  t.test('find elements by query', async function (t) {
-    t.teardown(remove);
+  it('find elements by query', async function () {
+    after(remove);
     await insert();
 
     const results = [];
@@ -76,16 +77,16 @@ test('query', async function (t) {
 
     await numbers.query({ value: 10 }).eachSeries(receive);
 
-    t.equal(results.length, 1, 'only one element is found');
-    t.deepEqual(
+    assert.equal(results.length, 1, 'only one element is found');
+    assert.deepEqual(
       results[0],
       { value: 10 },
       'and its value is what we were looking for'
     );
   });
 
-  t.test('find elements by query with fields and options', async function (t) {
-    t.teardown(remove);
+  it('find elements by query with fields and options', async function () {
+    after(remove);
     await insert();
 
     const results = await numbers
@@ -97,10 +98,10 @@ test('query', async function (t) {
       })
       .toArray();
 
-    t.equal(results.length, 3);
-    t.deepEqual(results[0], { value: 9 });
-    t.deepEqual(results[1], { value: 8 });
-    t.deepEqual(results[2], { value: 7 });
+    assert.equal(results.length, 3);
+    assert.deepEqual(results[0], { value: 9 });
+    assert.deepEqual(results[1], { value: 8 });
+    assert.deepEqual(results[2], { value: 7 });
   });
 
   async function insert(len = TEST_LEN) {
@@ -116,10 +117,10 @@ test('query', async function (t) {
     await numbers.close();
   }
 
-  t.test('bulk updates multiple documents', async function (t) {
+  it('bulk updates multiple documents', async function () {
     let items = db.collection({ name: 'items' });
 
-    t.teardown(async function drop() {
+    after(async function drop() {
       await items.drop();
       await items.close();
     });
@@ -132,7 +133,7 @@ test('query', async function (t) {
       { updateOne: { filter: { _id: 3 }, update: { $set: { name: 'c' } } } }
     ]);
 
-    t.equal(results.nModified, 3);
+    assert.equal(results.modifiedCount, 3);
 
     async function insert() {
       const tasks = [];

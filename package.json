@@ -22,12 +22,11 @@
   "license": "MIT",
   "dependencies": {
     "debug": "~4",
-    "mongodb": "~5"
+    "mongodb": "~6"
   },
   "devDependencies": {
-    "jshint": "~2",
-    "make-jshint": "~2",
-    "tape": "~5"
+    "@pirxpilot/jshint": "^3.0.1",
+    "make-jshint": "~2"
   },
   "files": [
     "index.js",

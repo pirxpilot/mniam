@@ -1,19 +1,20 @@
-const test = require(`tape`);
+const { describe, after, it } = require('node:test');
+const assert = require('node:assert/strict');
 
 const database = require('../lib/database');
 
-test('aggregate', async function (t) {
+describe('aggregate', async function () {
   const db = database('mongodb://localhost/mniam-test');
   const collection = db.collection({ name: 'books' });
   await db.drop();
 
-  t.teardown(async function () {
+  after(async function () {
     await db.drop();
     await db.close();
   });
 
-  t.test('should process pipeline', async function (t) {
-    t.teardown(closeCollection);
+  it('should process pipeline', async function () {
+    after(closeCollection);
 
     await createCollection();
 
@@ -29,7 +30,7 @@ test('aggregate', async function (t) {
       .sort({ count: -1 })
       .toArray();
 
-    t.deepEqual(results, [
+    assert.deepEqual(results, [
       { _id: { tags: 'fun' }, authors: ['bob'], count: 2 },
       { _id: { tags: 'good' }, authors: ['bob'], count: 1 }
     ]);
