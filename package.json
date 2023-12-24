@@ -25,7 +25,7 @@
     "mongodb": "~5"
   },
   "devDependencies": {
-    "jshint": "~2",
+    "@pirxpilot/jshint": "^3.0.1",
     "make-jshint": "~2"
   },
   "files": [
