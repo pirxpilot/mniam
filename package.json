@@ -26,8 +26,7 @@
   },
   "devDependencies": {
     "jshint": "~2",
-    "make-jshint": "~2",
-    "tape": "~5"
+    "make-jshint": "~2"
   },
   "files": [
     "index.js",
