@@ -133,7 +133,7 @@ describe('query', async function () {
       { updateOne: { filter: { _id: 3 }, update: { $set: { name: 'c' } } } }
     ]);
 
-    assert.equal(results.nModified, 3);
+    assert.equal(results.modifiedCount, 3);
 
     async function insert() {
       const tasks = [];

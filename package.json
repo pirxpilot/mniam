@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "debug": "~4",
-    "mongodb": "~5"
+    "mongodb": "~6"
   },
   "devDependencies": {
     "@pirxpilot/jshint": "^3.0.1",
