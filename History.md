@@ -1,4 +1,9 @@
 
+4.0.1 / 2023-12-28
+==================
+
+ * remove deprecated `useNewUrlParser` and `useUnifiedTopology` options
+
 4.0.0 / 2023-12-24
 ==================
 
