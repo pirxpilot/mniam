@@ -21,13 +21,11 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@biomejs/biome": "^1.9.4",
     "debug": "~4",
     "mongodb": "~6"
   },
-  "devDependencies": {
-    "@pirxpilot/jshint": "^3.0.1",
-    "make-jshint": "~2"
-  },
+  "devDependencies": {},
   "files": [
     "index.js",
     "lib"
