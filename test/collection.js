@@ -54,10 +54,7 @@ describe('collection', async function () {
     after(() => cleanup(friends));
 
     let item = await friends.insertOne({ name: 'Alice', age: 14 });
-    item = await friends.findOneAndReplace(
-      { name: 'Alice' },
-      { name: 'Bob', age: 33 }
-    );
+    item = await friends.findOneAndReplace({ name: 'Alice' }, { name: 'Bob', age: 33 });
 
     assert.equal(item.name, 'Alice');
     assert.equal(item.age, 14);
@@ -69,27 +66,20 @@ describe('collection', async function () {
     assert.equal(item.age, 33);
   });
 
-  it(
-    'collection supports findOneAndReplace with options',
-    async function () {
-      const friends = db.collection({
-        name: 'friends',
-        indexes: [[{ name: 1 }]]
-      });
-      after(() => cleanup(friends));
+  it('collection supports findOneAndReplace with options', async function () {
+    const friends = db.collection({
+      name: 'friends',
+      indexes: [[{ name: 1 }]]
+    });
+    after(() => cleanup(friends));
 
-      let item = await friends.insertOne({ name: 'Alice', age: 14 });
-      item = await friends.findOneAndReplace(
-        { name: 'Alice' },
-        { name: 'Bob', age: 33 },
-        { returnDocument: 'after' }
-      );
+    let item = await friends.insertOne({ name: 'Alice', age: 14 });
+    item = await friends.findOneAndReplace({ name: 'Alice' }, { name: 'Bob', age: 33 }, { returnDocument: 'after' });
 
-      assert.ok(item, 'should return replaced item');
-      assert.equal(item.name, 'Bob');
-      assert.equal(item.age, 33);
-    }
-  );
+    assert.ok(item, 'should return replaced item');
+    assert.equal(item.name, 'Bob');
+    assert.equal(item.age, 33);
+  });
 
   it('supports findOneAndDelete', async function () {
     const friends = db.collection({
@@ -118,10 +108,7 @@ describe('collection', async function () {
     after(() => cleanup(friends));
 
     await friends.insertOne({ name: 'Bob', age: 33 });
-    const item = await friends.findOneAndUpdate(
-      { name: 'Bob' },
-      { $set: { age: 34 } }
-    );
+    const item = await friends.findOneAndUpdate({ name: 'Bob' }, { $set: { age: 34 } });
 
     assert.ok(item, 'should return updated item');
     assert.ok(item._id);
