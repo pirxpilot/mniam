@@ -159,7 +159,7 @@ describe('collection', async function () {
     after(() => cleanup(friends));
 
     let item = await friends.insertOne({ name: 'Bob', age: 34 });
-    let items = await friends.query({ name: 'Bob' }).toArray();
+    const items = await friends.query({ name: 'Bob' }).toArray();
     assert.equal(items.length, 1);
     item = items[0];
     assert.equal(item.name, 'Bob');

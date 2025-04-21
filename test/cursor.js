@@ -114,7 +114,7 @@ describe('query', async function () {
   }
 
   it('bulk updates multiple documents', async function () {
-    let items = db.collection({ name: 'items' });
+    const items = db.collection({ name: 'items' });
 
     after(async function drop() {
       await items.drop();
