@@ -1,6 +1,10 @@
 check: lint test
 
-include node_modules/make-jshint/index.mk
+lint:
+	./node_modules/.bin/biome ci
+
+format:
+	./node_modules/.bin/biome check --fix
 
 test:
 	node --test --test-concurrency 1 test/*.js

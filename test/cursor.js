@@ -78,11 +78,7 @@ describe('query', async function () {
     await numbers.query({ value: 10 }).eachSeries(receive);
 
     assert.equal(results.length, 1, 'only one element is found');
-    assert.deepEqual(
-      results[0],
-      { value: 10 },
-      'and its value is what we were looking for'
-    );
+    assert.deepEqual(results[0], { value: 10 }, 'and its value is what we were looking for');
   });
 
   it('find elements by query with fields and options', async function () {
@@ -118,7 +114,7 @@ describe('query', async function () {
   }
 
   it('bulk updates multiple documents', async function () {
-    let items = db.collection({ name: 'items' });
+    const items = db.collection({ name: 'items' });
 
     after(async function drop() {
       await items.drop();
