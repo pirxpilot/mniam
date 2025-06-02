@@ -1,4 +1,10 @@
 
+4.1.1 / 2025-06-01
+==================
+
+ * remove unnecessary await when opening DB
+ * use `biome` as a linter and formatter
+
 4.1.0 / 2024-04-05
 ==================
 
@@ -32,7 +38,7 @@
  * add `items` method to cursor and aggregate
  * add `collection.distinct` method
 
-2.2.0 / 2021-09-20 
+2.2.0 / 2021-09-20
 ==================
 
  * upgrade mongodb driver to 4.x
@@ -169,25 +175,25 @@
  * simplify Makefile
  * relax debug version dependency
 
-0.3.0 / 2013-09-14 
+0.3.0 / 2013-09-14
 ==================
 
  * Use debug module
  * Use MongoClient connect
 
-0.2.0 / 2013-08-29 
+0.2.0 / 2013-08-29
 ==================
 
  * Update dependencies
  * Add dependency status badge to Readme
  * Add nmp version badge from badge.fury.io
 
-0.0.2 / 2012-12-17 
+0.0.2 / 2012-12-17
 ==================
 
   * MongoDB driver updates - write concern option
 
-0.0.1 / 2012-12-17 
+0.0.1 / 2012-12-17
 ==================
 
   * Add basic collection tests
