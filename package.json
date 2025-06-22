@@ -9,7 +9,10 @@
   "scripts": {
     "test": "make test"
   },
-  "repository": "pirxpilot/mniam",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pirxpilot/mniam.git"
+  },
   "keywords": [
     "mongodb",
     "mongo",
