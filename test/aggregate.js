@@ -3,17 +3,17 @@ const assert = require('node:assert/strict');
 
 const database = require('../lib/database');
 
-describe('aggregate', async function () {
+describe('aggregate', async () => {
   const db = database('mongodb://localhost/mniam-test');
   const collection = db.collection({ name: 'books' });
   await db.drop();
 
-  after(async function () {
+  after(async () => {
     await db.drop();
     await db.close();
   });
 
-  it('should process pipeline', async function () {
+  it('should process pipeline', async () => {
     after(closeCollection);
 
     await createCollection();

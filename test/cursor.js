@@ -5,11 +5,11 @@ const database = require('../lib/database');
 
 const db = database('mongodb://localhost/mniam-test');
 
-describe('query', async function () {
+describe('query', async () => {
   const TEST_LEN = 421;
 
   await db.drop();
-  after(async function () {
+  after(async () => {
     await db.drop();
     await db.close();
   });
@@ -19,7 +19,7 @@ describe('query', async function () {
     batchSize: 33
   });
 
-  it('eachLimit iterates over all elements', async function () {
+  it('eachLimit iterates over all elements', async () => {
     after(remove);
 
     const LEN = 512;
@@ -51,7 +51,7 @@ describe('query', async function () {
     assert.equal(maxRunning, 12, 'max concurrent task limit respected');
   });
 
-  it('for await iterates over all elements', async function () {
+  it('for await iterates over all elements', async () => {
     after(remove);
     await insert();
 
@@ -66,7 +66,7 @@ describe('query', async function () {
     assert.equal(results.filter(Boolean).length, TEST_LEN, 'and they all are true');
   });
 
-  it('find elements by query', async function () {
+  it('find elements by query', async () => {
     after(remove);
     await insert();
 
@@ -81,7 +81,7 @@ describe('query', async function () {
     assert.deepEqual(results[0], { value: 10 }, 'and its value is what we were looking for');
   });
 
-  it('find elements by query with fields and options', async function () {
+  it('find elements by query with fields and options', async () => {
     after(remove);
     await insert();
 
@@ -113,7 +113,7 @@ describe('query', async function () {
     await numbers.close();
   }
 
-  it('bulk updates multiple documents', async function () {
+  it('bulk updates multiple documents', async () => {
     const items = db.collection({ name: 'items' });
 
     after(async function drop() {

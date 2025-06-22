@@ -21,11 +21,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@biomejs/biome": "^1.9.4",
     "debug": "~4",
     "mongodb": "~6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@biomejs/biome": "2.0.4"
+  },
   "files": [
     "index.js",
     "lib"

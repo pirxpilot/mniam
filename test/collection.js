@@ -5,15 +5,15 @@ const database = require('../lib/database');
 
 const db = database('mongodb://localhost/mniam-test');
 
-describe('collection', async function () {
+describe('collection', async () => {
   await db.drop();
 
-  after(async function () {
+  after(async () => {
     await db.drop();
     await db.close();
   });
 
-  it('supports crud methods', async function () {
+  it('supports crud methods', async () => {
     const friends = db.collection({
       name: 'friends',
       indexes: [[{ name: 1 }]]
@@ -46,7 +46,7 @@ describe('collection', async function () {
     await friends.deleteOne({ name: 'Alice' });
   });
 
-  it('supports findOneAndReplace', async function () {
+  it('supports findOneAndReplace', async () => {
     const friends = db.collection({
       name: 'friends',
       indexes: [[{ name: 1 }]]
@@ -66,7 +66,7 @@ describe('collection', async function () {
     assert.equal(item.age, 33);
   });
 
-  it('collection supports findOneAndReplace with options', async function () {
+  it('collection supports findOneAndReplace with options', async () => {
     const friends = db.collection({
       name: 'friends',
       indexes: [[{ name: 1 }]]
@@ -81,7 +81,7 @@ describe('collection', async function () {
     assert.equal(item.age, 33);
   });
 
-  it('supports findOneAndDelete', async function () {
+  it('supports findOneAndDelete', async () => {
     const friends = db.collection({
       name: 'friends',
       indexes: [[{ name: 1 }]]
@@ -100,7 +100,7 @@ describe('collection', async function () {
     assert.ok(!item, 'should not find deleted item');
   });
 
-  it('findOneAndUpdate accepts query as argument', async function () {
+  it('findOneAndUpdate accepts query as argument', async () => {
     const friends = db.collection({
       name: 'friends',
       indexes: [[{ name: 1 }]]
@@ -116,7 +116,7 @@ describe('collection', async function () {
     assert.equal(item.age, 34);
   });
 
-  it('distinct', async function () {
+  it('distinct', async () => {
     const friends = db.collection({
       name: 'friends',
       indexes: [[{ name: 1 }]]
@@ -131,7 +131,7 @@ describe('collection', async function () {
     assert.deepEqual(await friends.distinct('age'), [22, 33]);
   });
 
-  it('drop removes all items from collection', async function () {
+  it('drop removes all items from collection', async () => {
     const values = db.collection({
       name: 'values'
     });
@@ -151,7 +151,7 @@ describe('collection', async function () {
     assert.equal(items.length, 0, 'should be empty after drom');
   });
 
-  it('one', async function () {
+  it('one', async () => {
     const friends = db.collection({
       name: 'friends',
       indexes: [[{ name: 1 }]]
@@ -167,7 +167,7 @@ describe('collection', async function () {
     assert.ok(item._id);
   });
 
-  it('many', async function () {
+  it('many', async () => {
     const friends = db.collection({
       name: 'friends',
       indexes: [[{ name: 1 }]]
