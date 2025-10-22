@@ -28,7 +28,7 @@
     "mongodb": "~6"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.4"
+    "@biomejs/biome": "2.2.7"
   },
   "files": [
     "index.js",
