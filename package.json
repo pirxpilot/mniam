@@ -2,10 +2,8 @@
   "name": "mniam",
   "version": "4.1.2",
   "description": "Yet another mongodb facade.",
-  "main": "./index",
-  "directories": {
-    "test": "test"
-  },
+  "type": "module",
+  "exports": "./index.js",
   "scripts": {
     "test": "make test"
   },
@@ -25,10 +23,11 @@
   "license": "MIT",
   "dependencies": {
     "debug": "~4",
-    "mongodb": "~6"
+    "mongodb": "~6",
+    "run-each-limit": "~3"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.4"
+    "@biomejs/biome": "2.2.7"
   },
   "files": [
     "index.js",

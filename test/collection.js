@@ -1,7 +1,6 @@
-const { describe, after, it } = require('node:test');
-const assert = require('node:assert/strict');
-
-const database = require('../lib/database');
+import assert from 'node:assert/strict';
+import { after, describe, it } from 'node:test';
+import database from '../lib/database.js';
 
 const db = database('mongodb://localhost/mniam-test');
 
