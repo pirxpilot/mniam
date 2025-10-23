@@ -1,4 +1,12 @@
 
+5.0.0 / 2025-10-23
+==================
+
+ * use `run-each-limit` to implement `parallelLimit`
+ * transition to ESM format
+ * upgrade `biome` to 2.2.7
+ * update github actions
+
 4.1.2 / 2025-06-22
 ==================
 
