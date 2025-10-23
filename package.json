@@ -23,7 +23,8 @@
   "license": "MIT",
   "dependencies": {
     "debug": "~4",
-    "mongodb": "~6"
+    "mongodb": "~6",
+    "run-each-limit": "~3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.7"
