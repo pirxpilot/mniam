@@ -1,6 +1,6 @@
 {
   "name": "mniam",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "Yet another mongodb facade.",
   "type": "module",
   "exports": "./index.js",

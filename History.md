@@ -1,4 +1,11 @@
 
+5.1.0 / 2025-12-27
+==================
+
+ * update github actions
+ * add basic support for explicit session
+ * upgrade mongodb driver to 7.0
+
 5.0.0 / 2025-10-23
 ==================
 
