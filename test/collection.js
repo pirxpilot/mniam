@@ -195,6 +195,22 @@ describe('collection', async () => {
     assert.equal(item.age, 20);
     assert.ok(item._id);
   });
+
+  it('with sessions', async () => {
+    await db.open();
+    const session = db.startSession();
+    try {
+      const friends = db.collection({
+        name: 'friends',
+        indexes: [[{ name: 1 }]]
+      });
+      after(() => cleanup(friends));
+      await friends.insertOne({ name: 'Alice', age: 14 }, { session });
+      await db.refreshSession(session);
+    } finally {
+      session.endSession();
+    }
+  });
 });
 
 async function cleanup(collection) {

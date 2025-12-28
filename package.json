@@ -23,7 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "debug": "~4",
-    "mongodb": "~6",
+    "mongodb": "~7",
     "run-each-limit": "~3"
   },
   "devDependencies": {
