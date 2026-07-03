@@ -27,7 +27,7 @@
     "run-each-limit": "~3"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.7"
+    "@biomejs/biome": "2.5.2"
   },
   "files": [
     "index.js",
