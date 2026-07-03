@@ -1,4 +1,10 @@
 
+5.2.0 / 2026-07-03
+==================
+
+ * upgrade `biome` to 2.5.2
+ * reexport `mongodb` exports: `ObjectId` and `Timestamp`
+
 5.1.0 / 2025-12-27
 ==================
 
